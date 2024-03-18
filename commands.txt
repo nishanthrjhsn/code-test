@@ -1,0 +1,26 @@
+make sure to have all necessary permissions before initiating for copying like IAM policies (Credentials, Roles, s3:GetObject, s3:PutObject, etc..)
+
+to copy entire bucket
+aws s3 sync s3://source-bucket-name s3://destination-bucket-name
+
+to copy periculatar file
+aws s3 sync s3://source-bucket-name/path s3://destination-bucket-name/path
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+to copy details from S3 bucket to DB
+create a DB with name, username, password and host details and setup a key for s3
+
+copy file to local "aws s3 cp s3://bucket-name/key /file-path/file-name"
+
+copy file from local to DB  
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------
+when there's update that has sent to with no limits we can invoke AWS Lambda function 
+
+1. create a AWS Lambda function
+2. COnfigure S3 event trigger
+3. Update DB
+
+and this loop repeats
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------

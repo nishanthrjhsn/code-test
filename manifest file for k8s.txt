@@ -1,0 +1,47 @@
+Deployment yaml for k8s
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: <deployment name>
+  labels:
+    app: <name>  
+spec:
+  selector:
+    matchLabels:
+      app: <name>
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 3
+      maxUnavailable: 0
+  template:
+    metadata:
+     spec:
+      containers:
+        - name: <name>
+          image: image:name#latest
+          ports:
+            - containerPort: 8010
+          readinessProbe:
+           tcpSocket:
+             port: 8010
+           initialDelaySeconds: 5
+           periodSeconds: 180
+          livenessProbe:
+           tcpSocket:
+             port: 8010
+           initialDelaySeconds: 120
+           periodSeconds: 20
+          imagePullPolicy: Always
+          resources:
+            limits:
+              cpu: "500m" 
+              memory: "800Mi"             
+            requests:
+              cpu: "250m"
+              memory: "600Mi"
+          envFrom:
+            - secretRef:  
+                name: <name-of-secret>  
